@@ -5,31 +5,31 @@ const DUMMY_EXPENSES = [
     id: "e1",
     description: "A pair of shoes",
     amount: 59.99,
-    date: new Date("2022-09-25"),
+    date: new Date("2022-09-21"),
   },
   {
     id: "e2",
     description: "A pair of trousers",
     amount: 89.29,
-    date: new Date("2022-09-28"),
+    date: new Date("2022-09-22"),
   },
   {
     id: "e3",
     description: "Some bananas",
     amount: 5.99,
-    date: new Date("2022-10-01"),
+    date: new Date("2022-09-23"),
   },
   {
     id: "e4",
     description: "A Book",
     amount: 14.99,
-    date: new Date("2022-10-05"),
+    date: new Date("2022-09-24"),
   },
   {
     id: "e5",
     description: "Another book",
     amount: 18.93,
-    date: new Date("2022-10-07"),
+    date: new Date("2022-09-25"),
   },
   {
     id: "e6",
@@ -41,24 +41,24 @@ const DUMMY_EXPENSES = [
     id: "e7",
     description: "A pair of trousers",
     amount: 89.29,
-    date: new Date("2022-09-28"),
+    date: new Date("2022-09-26"),
   },
   {
     id: "e8",
     description: "Some bananas",
     amount: 5.99,
-    date: new Date("2022-10-01"),
+    date: new Date("2022-09-27"),
   },
   {
     id: "e9",
     description: "A Book",
     amount: 14.99,
-    date: new Date("2022-10-05"),
+    date: new Date("2022-09-27"),
   },
 ];
 
 export const ExpenseContext = createContext({
-  expense: [],
+  expenses: [],
   addExpense: ({ description, amount, date }) => {},
   deleteExpense: (id) => {},
   updateExpense: (id, { description, amount, date }) => {},
@@ -101,7 +101,16 @@ function ExpensesContextProvider({ children }) {
     dispatch({ type: "UPDATE", payload: { id: id, data: expenseData } });
   }
 
-  return <ExpenseContext.Provider>{children}</ExpenseContext.Provider>;
+  const value = {
+    expenses: expenseState,
+    addExpense: addExpense,
+    deleteExpense: deleteExpense,
+    updateExpense: updateExpense,
+  };
+
+  return (
+    <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>
+  );
 }
 
 export default ExpensesContextProvider;
